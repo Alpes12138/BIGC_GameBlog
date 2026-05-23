@@ -1,5 +1,5 @@
 # Change baseurl before deploy
-baseurl = "https://alpes12138.github.io/bigc_gameblog/"
+baseurl = "https://alpes12138.github.io/BIGC_GameBlog/"
 locale  = "en-us"
 title   = "Hugo Theme Stack Starter"
 
