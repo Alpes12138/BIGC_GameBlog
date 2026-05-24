@@ -150,6 +150,9 @@ tags:
 - 图片引用、视频嵌入等可交给 AI 处理
 - 手动操作参考：[图片画廊](https://alpes12138.github.io/BIGC_GameBlog/p/%E5%9B%BE%E7%89%87%E7%94%BB%E5%BB%8A/) 和 [ShortCode 示例](https://alpes12138.github.io/BIGC_GameBlog/p/shortcode-%E7%A4%BA%E4%BE%8B/)
 
+> 想要将 Word 转换为 Markdown 格式，必须先在本地安装软件pandoc [官方网站](https://pandoc.org/installing.html), 跳转到GitHub页面后选择windows-x86_64.msi版本（或其他符合你操作系统的版本）进行下载和安装。
+
+
 ## 七、提交修改
 
 ### 1. 预览
