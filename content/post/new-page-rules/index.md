@@ -1,5 +1,5 @@
 ---
-title: 新页面创建规范-1.0
+title: 新页面创建规范-1.2
 description: 如何创建新页面的指南
 date: 2026-05-24T18:08:55+08:00
 image: cover.jpg
@@ -12,7 +12,7 @@ build:
 weight: 1
 ---
 
-# 新页面创建规范-1.1
+# 新页面创建规范-1.2
 
 本文介绍如何在BIGC游研会知识库新建页面。所有北京印刷学院校友均可参与知识分享。
 
@@ -146,7 +146,7 @@ tags:
 
 本框架使用 Markdown 编写正文，语法参考 [MarkDown 教程](https://markdown.com.cn/basic-syntax/)。
 
-- 可直接用 Word 撰写后让 AI 转换为 Markdown 格式
+- 可根据提示，直接将 Word 文件（或绝对路径）给 AI ，让 AI 转换为 Markdown 格式
 - 图片引用、视频嵌入等可交给 AI 处理
 - 手动操作参考：[图片画廊](https://alpes12138.github.io/BIGC_GameBlog/p/%E5%9B%BE%E7%89%87%E7%94%BB%E5%BB%8A/) 和 [ShortCode 示例](https://alpes12138.github.io/BIGC_GameBlog/p/shortcode-%E7%A4%BA%E4%BE%8B/)
 
