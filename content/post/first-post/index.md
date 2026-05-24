@@ -1,7 +1,7 @@
 ---
 title: 第一篇文章
 description: 测试
-slug: 第一篇文章
+slug: first-post
 date: 2026-05-24 14:24:22
 image: cover.jpg
 categories:
