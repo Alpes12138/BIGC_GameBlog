@@ -152,6 +152,8 @@ tags:
 
 > 想要将 Word 转换为 Markdown 格式，必须先在本地安装软件pandoc [官方网站](https://pandoc.org/installing.html), 跳转到GitHub页面后选择windows-x86_64.msi版本（或其他符合你操作系统的版本）进行下载和安装。
 
+提交前可以让AI根据Markdown格式再润色一遍，让文章更易读。
+
 
 ## 七、提交修改
 
