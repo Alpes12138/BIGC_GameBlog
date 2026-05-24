@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hugo New Page"
+  short_description: "Create and validate a new Hugo page bundle"
+  default_prompt: "Use $hugo-new-page to create a new Hugo content folder, wait for me to fill in the article, and validate it before finishing."
+
+policy:
+  allow_implicit_invocation: true
