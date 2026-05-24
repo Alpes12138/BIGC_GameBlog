@@ -1,5 +1,5 @@
 ---
-title: skill-test
+title: "skill-test"
 description:
 date: 2026-05-24T15:39:12Z
 image:
