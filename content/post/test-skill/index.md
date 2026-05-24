@@ -1,11 +1,10 @@
-```yaml
 ---
 #标题
-title: <slug>
+title: test-skill
 #介绍
 description:
 #日期
-date: <current timestamp with local timezone offset>
+date: 2026-05-24T17:10:39+08:00
 #封面图（例如 cover.jpg , 本文件夹必须有cover.jpg这个文件）
 image:
 math:
@@ -22,4 +21,3 @@ build:
 ---
 
 # 正文
-```

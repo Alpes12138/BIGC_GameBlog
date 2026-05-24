@@ -16,7 +16,7 @@ Use this skill when the user wants to create a new page or post directory with a
 5. Create `index.md` inside that folder using the template in `references/index_template.md`.
 6. Set `title` to `<slug>` unless the user explicitly provides another title.
 7. Set `date` to the current creation time when the file is generated, using the local timezone offset of the current environment.
-8. After creating the file, tell the user exactly: `请补充内容。补充完毕后请示意`
+8. After creating the file, tell the user exactly: `请补充内容。补充完毕后请回复“已完成”。`
 9. Wait for the user to reply with a completion signal such as `已完成`, `完成`, `done`, or an equivalent confirmation.
 10. Validate the file using the checks below.
 11. If the file is compliant, finish.
@@ -29,15 +29,21 @@ Follow this front matter shape by default:
 
 ```yaml
 ---
+#标题
 title: <slug>
+#介绍
 description:
-date: <current timestamp>
+#日期
+date: <current timestamp with local timezone offset>
+#封面图（例如 cover.jpg , 本文件夹必须有cover.jpg这个文件）
 image:
 math:
 license:
 comments: false
+#分类,一行代表有一个(- example)
 categories:
-    - example-category
+    - example-category1
+#标签,一行代表有一个(- example)
 tags:
     - example-tag
 build:
@@ -53,7 +59,8 @@ Additional rules:
 - Avoid generating a misleading UTC timestamp from local wall-clock time, because Hugo may treat the post as a future publication and hide it from the homepage.
 - Default `comments` to `false`.
 - Format `categories` and `tags` as multi-line YAML lists, with one item per line prefixed by `-`, matching `content/post/markdown-syntax/index.md`.
-- Leave the body ready for user editing. A short placeholder like `待补充` is acceptable before the user edits.
+- Preserve the inline Chinese field comments shown in `references/index_template.md`.
+- Leave the body ready for user editing with the heading `# 正文`.
 
 ## Validation Checks
 
