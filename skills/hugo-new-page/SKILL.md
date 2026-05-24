@@ -32,6 +32,7 @@ Use this skill when the user wants to create a new page or post directory with a
     - Replace everything after the front matter in `index.md` (i.e. the `# 正文` placeholder and anything below it) with the extracted body.
     - Copy any local image files referenced in the body into the bundle folder (same directory as `index.md`). Interpret relative image paths relative to the source file's directory. If the source image path does not resolve, skip it (do not copy non-existent files).
     - Update image references in the body to point to the bundle-local copies (e.g. `![alt](image.png)` where `image.png` now lives beside `index.md`).
+    - If the source file contains Goldmark `{width="Xin" height="Yin"}` attributes on images, apply the same conversion and centering rules as in "Image Post-Processing Rules" below.
     - Go to step 14.
 
 12. **Word Import (.docx):**
@@ -44,11 +45,13 @@ Use this skill when the user wants to create a new page or post directory with a
     - Remove the temp file after reading its contents.
     - Read the converted body text from the temp output.
     - The `--extract-media` flag already places images in the bundle folder under a `media/` subdirectory. If images were extracted there, move them from `media/` up to the bundle root (beside `index.md`) and update image reference paths in the body accordingly.
-    - Replace everything after the front matter in `index.md` with the converted body.
+    - **Convert image syntax**: Replace Pandoc's Goldmark `{width="Xin" height="Yin"}` attributes with HTML `<img>` tags using pixel values, then apply centering (see "Image Post-Processing Rules" below).
+    - **Preserve text alignment**: Extract centered paragraph indices from the .docx `word/document.xml`, then wrap corresponding paragraphs in `<div style="text-align:center;">...</div>` (see "Image Post-Processing Rules > Section 4" below).
+    - Replace everything after the front matter in `index.md` with the processed body.
     - Go to step 14.
 
 13. **Image Reference Validation (post-import):**
-    - Scan the body of `index.md` for image references: `![...](<path>)` and `<img src="<path>">`.
+    - Scan the body of `index.md` for image references: `![...](<path>)`, `<img src="<path>">`, and `<img ... src="<path>">`.
     - For each local reference (not starting with `http://` or `https://`), verify the file exists relative to the bundle folder.
     - If a referenced image file is missing, remove the image reference line from the body.
     - If at least one valid local image exists in the bundle and `image:` in front matter is empty, set `image:` to the first valid image filename (e.g. `image: cover.jpg`).
@@ -123,6 +126,131 @@ When importing body content from an external file:
 - If the imported body already starts with a top-level heading (e.g. `# Some Title`), do not add a duplicate `# 正文` heading. The imported content stands alone.
 - If the body is empty after import (e.g. empty source file), fall back to the default `# 正文` placeholder.
 - Warn the user if any image references in the imported content could not be resolved, listing the unresolved paths.
+
+## Image Post-Processing Rules
+
+After importing body content (whether from .md or .docx), apply the following transformations to all image references:
+
+### 1. Convert Goldmark Attributes to HTML `<img>` Tags
+
+Pandoc exports images with Goldmark attribute syntax: `![](path){width="Xin" height="Yin"}`. Hugo's Stack theme CSS does NOT respect these attributes. The `in` (inch) unit is not a valid HTML `width` attribute value. Always convert to `<img>` HTML tags with pixel dimensions.
+
+**Conversion formula**: `pixels = inches × 96` (standard CSS DPI), rounded to integer.
+
+Example:
+```
+Pandoc output:   ![](image1.jpeg){width="4.92in" height="2.7668in"}
+Converted:       <img src="image1.jpeg" style="width:472px; height:266px;" alt="">
+```
+
+Implementation (PowerShell):
+```powershell
+$content = [regex]::Replace($content, '!\[.*?\]\(([^)]+)\)\{width="([^"]+)in"\s*\r?\nheight="([^"]+)in"\}', {
+    param($m)
+    $filename = [System.IO.Path]::GetFileName($m.Groups[1].Value)
+    $widthPx  = [math]::Round([double]$m.Groups[2].Value * 96)
+    $heightPx = [math]::Round([double]$m.Groups[3].Value * 96)
+    return "<img src=""$filename"" style=""width:${widthPx}px; height:${heightPx}px;"" alt="""">"
+})
+```
+
+### 2. Center All Images
+
+After converting to `<img>` tags, apply centering:
+
+- **Standalone images** (one `<img>` per line): Add `display:block; margin:0 auto;` to the style.
+- **Paired/side-by-side images** (two `<img>` on the same line): Wrap the pair in `<div style="text-align:center;">...</div>` and add `display:inline-block;` to each `<img>`.
+
+Before centering:
+```
+<img src="image3.png" style="width:422px; height:225px;" alt="">
+<img src="image1.jpeg" style="width:472px; height:266px;" alt=""><img src="image2.png" style="width:472px; height:265px;" alt="">
+```
+
+After centering:
+```
+<img src="image3.png" style="display:block; margin:0 auto; width:422px; height:225px;" alt="">
+<div style="text-align:center;"><img src="image1.jpeg" style="display:inline-block; width:472px; height:266px;" alt=""><img src="image2.png" style="display:inline-block; width:472px; height:265px;" alt=""></div>
+```
+
+Implementation (PowerShell):
+```powershell
+# Add centering to standalone images (single img on line)
+$content = $content -replace '<img src="(.*?)style="width', '<img src="$1style="display:block; margin:0 auto; width'
+# Wrap paired images in centered div and add inline-block
+$content = [regex]::Replace($content,
+    '<img src="([^"]+)" style="([^"]*)" alt=""><img src="([^"]+)" style="([^"]*)" alt="">',
+    '<div style="text-align:center;"><img src="$1" style="display:inline-block; $2" alt=""><img src="$3" style="display:inline-block; $4" alt=""></div>'
+)
+# Fix ";" duplication (standalone regex applied to second img in pairs) — remove duplicate display
+$content = $content -replace 'inline-block; display:block; margin:0 auto;', 'inline-block;'
+```
+
+### 3. Inline Images
+
+If an `<img>` tag appears inline within text (e.g. `...完成题目。<img src="image21.jpeg" ...>`), split it onto its own line so it can be centered as a standalone image.
+
+### 4. Preserve Word Text Alignment (Centering)
+
+Word documents may contain centered paragraphs (aligned with `w:jc w:val="center"`). Pandoc does NOT preserve paragraph alignment. Use the following positional approach to restore centering.
+
+**Algorithm:**
+1. Unzip the `.docx` file and read `word/document.xml`.
+2. Parse all `<w:p>` paragraphs with `<w:jc w:val="center"/>` and record their 1-based indices.
+3. After pandoc conversion, split the markdown body into paragraphs (separated by blank lines `\r?\n\r?\n`).
+4. For each centered paragraph index, wrap the corresponding markdown paragraph in `<div style="text-align:center;">...</div>`.
+
+**Implementation (PowerShell):**
+
+```powershell
+# Given $docxPath and the pandoc-converted markdown body $body:
+
+# 1. Extract centered paragraph indices from docx XML
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$zip = [System.IO.Compression.ZipFile]::OpenRead($docxPath)
+$entry = $zip.GetEntry("word/document.xml")
+$stream = $entry.Open()
+$reader = New-Object System.IO.StreamReader($stream)
+$xml = $reader.ReadToEnd()
+$reader.Dispose(); $stream.Dispose(); $zip.Dispose()
+
+$paraPattern = '<w:p(?:\s[^>]*)?>(.*?)</w:p>'
+$paraMatches = [regex]::Matches($xml, $paraPattern, [System.Text.RegularExpressions.RegexOptions]::Singleline)
+$centeredIndices = @()
+$idx = 0
+foreach ($pm in $paraMatches) {
+    $idx++
+    if ($pm.Value -match '<w:jc\s+[^>]*w:val="center"') {
+        $centeredIndices += $idx
+    }
+}
+
+# 2. Split markdown body into paragraphs
+$paras = $body -split '\r?\n\r?\n' | Where-Object { $_.Trim().Length -gt 0 }
+$result = @()
+
+# 3. Wrap centered paragraphs
+for ($i = 0; $i -lt $paras.Count; $i++) {
+    $p = $paras[$i]
+    $paraNum = $i + 1  # 1-based
+    if ($centeredIndices -contains $paraNum) {
+        # Skip empty/image-only paragraphs (already handled by img centering)
+        if ($p -notmatch '^\s*<img\s' -and $p.Trim().Length -gt 0) {
+            $p = "<div style=`"text-align:center;`">`r`n`r`n$p`r`n`r`n</div>"
+        }
+    }
+    $result += $p
+}
+
+$centeredBody = $result -join "`r`n`r`n"
+```
+
+**Important notes:**
+- This approach relies on positional correspondence (paragraph N in docx → paragraph N in Markdown). Pandoc maintains this for text paragraphs; images may shift indices slightly.
+- Skip empty paragraphs and image-only paragraphs (already centered by Section 2 above).
+- Wrap the `<div>` with double blank lines (`\r\n\r\n`) before and after to maintain proper Markdown paragraph separation.
+- If the paragraph index mapping appears off by a few positions, accept minor misalignment — the user can manually adjust during the content editing phase.
+- After wrapping, run the image centering pass (Section 2) so that images inside centered divs still receive proper styling.
 
 ## Validation Checks
 
