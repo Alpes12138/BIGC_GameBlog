@@ -13,6 +13,7 @@ These rules were derived from the project examples:
 - This workflow uses a richer default template so new pages are consistent and easy to extend.
 - `image` should only be set when the referenced asset really exists.
 - `math: true` is only needed for posts that contain math rendering.
+- `date` should reflect the real local or UTC timezone accurately. Do not mark a local time as `Z`, or Hugo may treat the post as a future article and omit it from the homepage.
 
 ## Local Assets
 

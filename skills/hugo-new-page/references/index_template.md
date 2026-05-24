@@ -2,7 +2,7 @@
 ---
 title: <slug>
 description:
-date: <current timestamp>
+date: <current timestamp with local timezone offset>
 image:
 math:
 license:

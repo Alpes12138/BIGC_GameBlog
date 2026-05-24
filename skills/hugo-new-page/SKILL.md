@@ -15,7 +15,7 @@ Use this skill when the user wants to create a new page or post directory with a
 4. Otherwise, create the bundle at `<workspace-root>/<slug>/`.
 5. Create `index.md` inside that folder using the template in `references/index_template.md`.
 6. Set `title` to `<slug>` unless the user explicitly provides another title.
-7. Set `date` to the current creation time when the file is generated.
+7. Set `date` to the current creation time when the file is generated, using the local timezone offset of the current environment.
 8. After creating the file, tell the user exactly: `请补充内容。补充完毕后请示意`
 9. Wait for the user to reply with a completion signal such as `已完成`, `完成`, `done`, or an equivalent confirmation.
 10. Validate the file using the checks below.
@@ -47,6 +47,8 @@ Additional rules:
 
 - Do not wrap scalar values such as `title` in quotes unless the user explicitly wants them.
 - `date` must be the actual creation timestamp at runtime, not a placeholder.
+- Do not append `Z` unless the captured time is truly UTC. Prefer a local offset such as `+08:00` when working in a local timezone.
+- Avoid generating a misleading UTC timestamp from local wall-clock time, because Hugo may treat the post as a future publication and hide it from the homepage.
 - Default `comments` to `false`.
 - Leave the body ready for user editing. A short placeholder like `待补充` is acceptable before the user edits.
 
@@ -56,6 +58,7 @@ After the user says content entry is complete, inspect `index.md` and validate:
 
 - The front matter is present and structurally valid for Hugo.
 - `title`, `date`, `comments`, `categories`, `tags`, and `build.list` are present unless the user deliberately removed them.
+- `date` does not misrepresent the timezone. If the time was captured from local time, prefer a matching local offset instead of `Z`.
 - Any `image:` value that points to a local file must resolve to a file that exists in the same bundle or at the referenced relative path.
 - Any Markdown image reference like `![...](...)` that is intended to be local must point to an existing file.
 - Any internal Markdown link should use a sensible relative or absolute site path and should not be obviously broken.
@@ -70,6 +73,7 @@ Apply automatic fixes only when the intended correction is clear:
 - If `image:` references a missing local file, clear the field to `image:` rather than leaving a broken reference.
 - If `categories` or `tags` are represented as empty list items, normalize them to `[]`.
 - If `comments` is missing, set it to `false`.
+- If `date` uses `Z` but appears to have been copied from local wall-clock time, rewrite it with the local timezone offset when that correction is clear.
 - If the article contains obvious math expressions and `math` is empty, set `math: true`.
 
 When auto-fixes are applied, show the user what was corrected and ask for confirmation before finishing.
