@@ -1,25 +1,29 @@
 ---
-title: Shortcodes
-description: Useful shortcodes that can be used in Markdown
+title: Shortcode 示例
+description: 可在 Markdown 中使用的实用 Shortcode
 date: 2023-08-25 00:00:00+0000
 image: cover.jpg
+categories:
+    - 示例分类
+tags:
+    - 示例标签
 ---
 
-For more details, check out the [documentation](https://stack.jimmycai.com/writing/shortcodes).
+如需查看更多说明，可以参考官方文档：<https://stack.jimmycai.com/writing/shortcodes>
 
-## Bilibili video
+## Bilibili 视频
 
 {{< bilibili "BV1d4411N7zD" >}}
 
-## Tencent video
+## 腾讯视频
 
 {{< tencent "g0014r3khdw" >}}
 
-## YouTube video
+## YouTube 视频
 
 {{< youtube "0qwALOOvUik" >}}
 
-## Generic video file
+## 通用视频文件
 
 {{< video "https://www.w3schools.com/tags/movie.mp4" >}}
 
@@ -27,12 +31,12 @@ For more details, check out the [documentation](https://stack.jimmycai.com/writi
 
 {{< gitlab 2589724 >}}
 
-## Quote
+## 引用
 
-{{< quote author="A famous person" source="The book they wrote" url="https://en.wikipedia.org/wiki/Book">}}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+{{< quote author="一位知名作者" source="他写的一本书" url="https://en.wikipedia.org/wiki/Book">}}
+这是一段用于演示 shortcode 的引用内容。你可以在这里放入摘录、名言、书摘，或者任何需要突出展示的文本。
 {{< /quote >}}
 
 -----
 
-> Photo by [Codioful](https://unsplash.com/@codioful) on [Unsplash](https://unsplash.com/photos/WDSN62Qdxuk)
+> 封面图片来自 [Codioful](https://unsplash.com/@codioful) / [Unsplash](https://unsplash.com/photos/WDSN62Qdxuk)

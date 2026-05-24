@@ -1,24 +1,20 @@
 ---
-title: Markdown Syntax Guide
+title: Markdown 语法指南
 date: 2023-09-07
-description: Sample article showcasing basic Markdown syntax and formatting for HTML elements.
-tags: 
-    - markdown
-    - css
-    - html
-    - themes
+description: 一篇展示基础 Markdown 语法与常见 HTML 元素格式效果的示例文章。
+tags:
+    - 示例标签
 categories:
-    - themes
-    - syntax
+    - 示例分类
 ---
 
-This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.
+这篇文章展示了 Hugo 内容文件中常见的 Markdown 基础语法，也可以顺便观察主题是否为基础 HTML 元素提供了合适的样式。
 
 <!--more-->
 
-## Headings
+## 标题
 
-The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
+下面的 HTML `<h1>` 到 `<h6>` 元素分别表示六个层级的标题，其中 `<h1>` 级别最高，`<h6>` 级别最低。
 
 # H1
 ## H2
@@ -27,49 +23,50 @@ The following HTML `<h1>`—`<h6>` elements represent six levels of section head
 ##### H5
 ###### H6
 
-## Paragraph
+## 段落
 
-Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
+这是一个普通段落示例，用来展示正文在当前主题中的排版效果。你可以观察行高、段间距、链接样式以及不同长度文本在页面中的阅读体验。
 
-Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+这是第二段示例文字。通常在正式写作中，这里可以放文章导语、背景说明，或者更完整的内容段落，用来测试主题对连续文本的呈现效果。
 
-## Blockquotes
+## 引用块
 
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+blockquote 元素用于表示引用内容，也可以搭配出处信息使用；如果需要，还可以在引用内部继续使用强调、链接等行内 Markdown 语法。
 
-### Blockquote without attribution
+### 不带出处的引用
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
-> **Note** that you can use *Markdown syntax* within a blockquote.
+> 这是一段示例引用文字。
+> **注意**：你也可以在引用块中继续使用 *Markdown 语法*。
 
-### Blockquote with attribution
+### 带出处的引用
 
-> Don't communicate by sharing memory, share memory by communicating.<br>
+> 不要通过共享内存来通信，而要通过通信来共享内存。<br>
 > — <cite>Rob Pike[^1]</cite>
 
-[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
+[^1]: 这句话摘自 Rob Pike 于 2015 年 11 月 18 日在 Gopherfest 上的 [演讲](https://www.youtube.com/watch?v=PAAkCSZUG1c)。
 
-## Tables
+## 表格
 
-Tables aren't part of the core Markdown spec, but Hugo supports supports them out-of-the-box.
+表格并不是最核心的 Markdown 语法之一，但 Hugo 默认就支持它。
 
-   Name | Age
+   姓名 | 年龄
 --------|------
-    Bob | 27
-  Alice | 23
+    小王 | 27
+  小李 | 23
 
-### Inline Markdown within tables
+### 表格中的行内 Markdown
 
-| Italics   | Bold     | Code   |
-| --------  | -------- | ------ |
-| *italics* | **bold** | `code` |
+| 斜体      | 加粗     | 代码   |
+| --------- | -------- | ------ |
+| *斜体*    | **加粗** | `code` |
 
-| A                                                        | B                                                                                                             | C                                                                                                                                    | D                                                 | E                                                          | F                                                                    |
-|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|------------------------------------------------------------|----------------------------------------------------------------------|
-| Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex. | Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus | Proin sit amet velit nec enim imperdiet vehicula. | Ut bibendum vestibulum quam, eu egestas turpis gravida nec | Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien |
+| A           | B             | C             | D             | E             | F             |
+|-------------|---------------|---------------|---------------|---------------|---------------|
+| 这里是一段较长的示例文本。 | 这里用于演示多列表格。 | 你可以观察单元格换行表现。 | 也可以测试宽表格的横向布局。 | 适合检查主题在文章内的可读性。 | 这是最后一列示例内容。 |
 
-## Code Blocks
-### Code block with backticks
+## 代码块
+
+### 使用反引号的代码块
 
 ```html
 <!doctype html>
@@ -84,7 +81,7 @@ Tables aren't part of the core Markdown spec, but Hugo supports supports them ou
 </html>
 ```
 
-### Code block indented with four spaces
+### 使用四个空格缩进的代码块
 
     <!doctype html>
     <html lang="en">
@@ -97,7 +94,7 @@ Tables aren't part of the core Markdown spec, but Hugo supports supports them ou
     </body>
     </html>
 
-### Diff code block
+### Diff 代码块
 
 ```diff
 [dependencies.bevy]
@@ -107,44 +104,44 @@ rev = "11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13"
 + features = ["jpeg", "dynamic"]
 ```
 
-### One line code block
+### 单行代码块
 
 ```html
 <p>A paragraph</p>
 ```
 
-## List Types
+## 列表类型
 
-### Ordered List
+### 有序列表
 
-1. First item
-2. Second item
-3. Third item
+1. 第一项
+2. 第二项
+3. 第三项
 
-### Unordered List
+### 无序列表
 
-* List item
-* Another item
-* And another item
+* 列表项
+* 另一项
+* 再来一项
 
-### Nested list
+### 嵌套列表
 
-* Fruit
-  * Apple
-  * Orange
-  * Banana
-* Dairy
-  * Milk
-  * Cheese
+* 水果
+  * 苹果
+  * 橙子
+  * 香蕉
+* 乳制品
+  * 牛奶
+  * 奶酪
 
-## Other Elements — abbr, sub, sup, kbd, mark
+## 其他元素：abbr、sub、sup、kbd、mark
 
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
+<abbr title="Graphics Interchange Format">GIF</abbr> 是一种位图图像格式。
 
 H<sub>2</sub>O
 
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
+按下 <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> 可以结束当前会话。
 
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+大多数 <mark>蝾螈</mark> 都是夜行性动物，会捕食昆虫、蠕虫以及其他小型生物。
