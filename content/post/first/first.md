@@ -2,7 +2,7 @@
 title: "第一篇"
 description: 测试
 date: 2026-05-24T06:32:13Z
-image: 
+image: cover.jpg
 math: 
 license: 
 comments: true
@@ -15,6 +15,6 @@ build:
 ---
 
 测试
-#测试
-##测试
-###测试
+# 测试
+## 测试
+### 测试
