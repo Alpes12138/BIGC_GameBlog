@@ -1,11 +1,11 @@
 ---
 name: hugo-new-page
-description: Use when creating a new Hugo content page or post folder, especially for Hugo Stack projects. This skill asks the user for a slug, detects whether the current workspace is a Hugo project, creates the page bundle folder and index.md in the correct location, prompts the user to fill in content, then validates front matter, local resource references, and Markdown conventions before finishing.
+description: Use when creating a new Hugo content page or post folder, especially for Hugo Stack projects. This skill asks the user for a slug, detects whether the current workspace is a Hugo project, creates the page bundle folder and index.md in the correct location, supports importing body content from .md or .docx files (with automatic Word-to-Markdown conversion and image extraction), prompts the user to fill in content, then validates front matter, local resource references, and Markdown conventions before finishing.
 ---
 
 # Hugo New Page
 
-Use this skill when the user wants to create a new page or post directory with a starter `index.md`, then guide the user through content completion and final validation.
+Use this skill when the user wants to create a new page or post directory with a starter `index.md`, optionally import body content from a Markdown or Word file, then guide the user through content completion and final validation.
 
 ## Workflow
 
@@ -16,12 +16,49 @@ Use this skill when the user wants to create a new page or post directory with a
 5. Create `index.md` inside that folder using the template in `references/index_template.md`.
 6. Set `title` to `<slug>` unless the user explicitly provides another title.
 7. Set `date` to the current creation time when the file is generated, using the local timezone offset of the current environment.
-8. After creating the file, tell the user exactly: `请补充内容。补充完毕后请回复“已完成”。`
-9. Wait for the user to reply with a completion signal such as `已完成`, `完成`, `done`, or an equivalent confirmation.
-10. Validate the file using the checks below.
-11. If the file is compliant, finish.
-12. If the file is not compliant, automatically fix clear issues when the intended correction is obvious, then ask the user to confirm the revised result.
-13. After the user confirms the revised result, finish.
+8. After creating the file, ask the user exactly: `是否需要从文件导入正文内容？支持 .md 或 .docx 文件（提供文件路径即可）。如无需导入，请回复"跳过"。`
+9. Wait for the user to reply with:
+   - A file path (e.g. `C:\Users\...\article.docx` or `./my-content.md`): proceed to step 10.
+   - A completion signal such as `跳过`, `skip`, `no`: proceed to step 14 (content completion prompt).
+10. **File Import — Determine file type:**
+    - If the file ends with `.md`: go to step 11 (Markdown import).
+    - If the file ends with `.docx`: go to step 12 (Word import).
+    - Otherwise: tell the user the format is unsupported and return to step 9.
+
+11. **Markdown Import:**
+    - Read the file contents.
+    - If the file has YAML front matter (starts and ends with `---`), extract everything after the closing `---` as the body.
+    - If the file has no front matter, use the entire content as the body.
+    - Replace everything after the front matter in `index.md` (i.e. the `# 正文` placeholder and anything below it) with the extracted body.
+    - Copy any local image files referenced in the body into the bundle folder (same directory as `index.md`). Interpret relative image paths relative to the source file's directory. If the source image path does not resolve, skip it (do not copy non-existent files).
+    - Update image references in the body to point to the bundle-local copies (e.g. `![alt](image.png)` where `image.png` now lives beside `index.md`).
+    - Go to step 14.
+
+12. **Word Import (.docx):**
+    - Check if `pandoc` is available in the environment by running `pandoc --version`. If pandoc is not found, tell the user: `未检测到 Pandoc，请安装 Pandoc（https://pandoc.org/installing.html）后重新提供文件路径，或回复"跳过"手动填写内容。` and return to step 9.
+    - Run pandoc to convert the .docx file to Markdown with image extraction:
+      ```bash
+      pandoc "<input.docx>" -t markdown --extract-media="content/post/<slug>" -o "<temp-output.md>"
+      ```
+      where `<temp-output.md>` is a temporary file path (use `<workspace-root>/.kilo-hugo-import.md` or similar).
+    - Remove the temp file after reading its contents.
+    - Read the converted body text from the temp output.
+    - The `--extract-media` flag already places images in the bundle folder under a `media/` subdirectory. If images were extracted there, move them from `media/` up to the bundle root (beside `index.md`) and update image reference paths in the body accordingly.
+    - Replace everything after the front matter in `index.md` with the converted body.
+    - Go to step 14.
+
+13. **Image Reference Validation (post-import):**
+    - Scan the body of `index.md` for image references: `![...](<path>)` and `<img src="<path>">`.
+    - For each local reference (not starting with `http://` or `https://`), verify the file exists relative to the bundle folder.
+    - If a referenced image file is missing, remove the image reference line from the body.
+    - If at least one valid local image exists in the bundle and `image:` in front matter is empty, set `image:` to the first valid image filename (e.g. `image: cover.jpg`).
+
+14. Tell the user exactly: `请补充内容。补充完毕后请回复"已完成"。`
+15. Wait for the user to reply with a completion signal such as `已完成`, `完成`, `done`, or an equivalent confirmation.
+16. Validate the file using the checks below.
+17. If the file is compliant, finish.
+18. If the file is not compliant, automatically fix clear issues when the intended correction is obvious, then ask the user to confirm the revised result.
+19. After the user confirms the revised result, finish.
 
 ## Template Rules
 
@@ -61,6 +98,31 @@ Additional rules:
 - Format `categories` and `tags` as multi-line YAML lists, with one item per line prefixed by `-`, matching `content/post/markdown-syntax/index.md`.
 - Preserve the inline Chinese field comments shown in `references/index_template.md`.
 - Leave the body ready for user editing with the heading `# 正文`.
+
+## File Import Rules
+
+When importing body content from an external file:
+
+**Markdown (.md) import:**
+- Strip any YAML front matter from the source file; only import the body (content after the second `---`).
+- If the source is outside the workspace, images referenced with relative paths must be resolved relative to the source file's parent directory.
+- Copy referenced local images into the bundle folder and update paths to just the filename (e.g. `![alt](image.png)`).
+- Do NOT overwrite or modify the front matter of the target `index.md`.
+
+**Word (.docx) import:**
+- Pandoc 3.x is required. Use `pandoc --version` to verify availability before attempting conversion.
+- Use `--extract-media=<bundle-path>` so images land directly in the bundle folder.
+- Pandoc may create a `media/` subdirectory inside the extraction target. If so, move all files from `media/` up to the bundle root and remove the empty `media/` directory, then update image paths in the body from `media/filename` to just `filename`.
+- After conversion, delete the temporary output file.
+- Common pandoc conversion issues to be aware of:
+  - Word heading styles become `# Heading` Markdown headings.
+  - Word tables become Markdown tables (may need manual adjustment for complex tables).
+  - Embedded images are extracted as PNG/JPEG files (pandoc names them automatically, e.g. `media/image1.png`).
+
+**General:**
+- If the imported body already starts with a top-level heading (e.g. `# Some Title`), do not add a duplicate `# 正文` heading. The imported content stands alone.
+- If the body is empty after import (e.g. empty source file), fall back to the default `# 正文` placeholder.
+- Warn the user if any image references in the imported content could not be resolved, listing the unresolved paths.
 
 ## Validation Checks
 
