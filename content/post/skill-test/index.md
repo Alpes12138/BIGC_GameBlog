@@ -1,5 +1,5 @@
 ---
-title: skill-test
+title: skill-test-2026
 description:
 date: 2026-05-24T15:39:12+08:00
 image:
