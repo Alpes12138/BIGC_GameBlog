@@ -8,7 +8,8 @@ categories:
     - 文章 测试
 tags:
     - 文章
-weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+build:
+    list: always
 ---
 
 Welcome to Hugo theme Stack. This is your first post. Edit or delete it, then start writing!
