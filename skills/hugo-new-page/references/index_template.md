@@ -7,8 +7,10 @@ image:
 math:
 license:
 comments: false
-categories: []
-tags: []
+categories:
+    - example-category
+tags:
+    - example-tag
 build:
     list: always
 ---

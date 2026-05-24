@@ -7,7 +7,8 @@ math:
 license:
 comments: false
 categories:
-    - Alpes 测试
+    - Alpes
+    - 测试
 tags:
     - 测试
 build:

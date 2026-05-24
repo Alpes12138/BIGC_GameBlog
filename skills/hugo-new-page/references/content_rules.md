@@ -14,6 +14,7 @@ These rules were derived from the project examples:
 - `image` should only be set when the referenced asset really exists.
 - `math: true` is only needed for posts that contain math rendering.
 - `date` should reflect the real local or UTC timezone accurately. Do not mark a local time as `Z`, or Hugo may treat the post as a future article and omit it from the homepage.
+- `categories` and `tags` should use multi-line YAML list formatting, with one list item per line, following `content/post/markdown-syntax/index.md`.
 
 ## Local Assets
 
@@ -40,5 +41,5 @@ These rules were derived from the project examples:
 ## Validation Heuristics
 
 - Broken local file references should be repaired or removed.
-- Empty placeholder metadata should be normalized when it creates malformed or misleading output.
+- Empty or inline list metadata should be normalized into multi-line YAML lists when the skill needs to repair formatting.
 - User-authored prose should be preserved whenever possible.

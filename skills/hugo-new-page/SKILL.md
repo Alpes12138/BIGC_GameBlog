@@ -36,8 +36,10 @@ image:
 math:
 license:
 comments: false
-categories: []
-tags: []
+categories:
+    - example-category
+tags:
+    - example-tag
 build:
     list: always
 ---
@@ -50,6 +52,7 @@ Additional rules:
 - Do not append `Z` unless the captured time is truly UTC. Prefer a local offset such as `+08:00` when working in a local timezone.
 - Avoid generating a misleading UTC timestamp from local wall-clock time, because Hugo may treat the post as a future publication and hide it from the homepage.
 - Default `comments` to `false`.
+- Format `categories` and `tags` as multi-line YAML lists, with one item per line prefixed by `-`, matching `content/post/markdown-syntax/index.md`.
 - Leave the body ready for user editing. A short placeholder like `待补充` is acceptable before the user edits.
 
 ## Validation Checks
@@ -71,7 +74,7 @@ After the user says content entry is complete, inspect `index.md` and validate:
 Apply automatic fixes only when the intended correction is clear:
 
 - If `image:` references a missing local file, clear the field to `image:` rather than leaving a broken reference.
-- If `categories` or `tags` are represented as empty list items, normalize them to `[]`.
+- If `categories` or `tags` use inline array syntax or malformed empty entries, normalize them into multi-line YAML lists with one `-` entry per line.
 - If `comments` is missing, set it to `false`.
 - If `date` uses `Z` but appears to have been copied from local wall-clock time, rewrite it with the local timezone offset when that correction is clear.
 - If the article contains obvious math expressions and `math` is empty, set `math: true`.
