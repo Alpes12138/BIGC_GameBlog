@@ -2,7 +2,7 @@
 title: 色彩与构图
 description: 从图像心理学、线条、形状、色值、色彩、光到构图，系统梳理视觉设计中的核心原理与游戏动画中的应用实践。
 date: 2026-06-11T17:09:13+08:00
-image: cover.jpg
+image: cover.webp
 categories:
   - Chamber
   - 美术
@@ -16,7 +16,7 @@ tags:
 
 [**查看《色彩与构图》PDF原文**](https://www.kdocs.cn/l/ctid8z8HOYUz)
 
-<img src="media/image1.png" style="display: block; margin: 0 auto;" />
+<img src="media/image1.webp" style="display: block; margin: 0 auto;" />
 
 # 一、图像心理学
 
@@ -28,9 +28,9 @@ tags:
 
 图像的解剖结构：
 
-<img src="media/image2.png" style="display: block; margin: 0 auto;" />
+<img src="media/image2.webp" style="display: block; margin: 0 auto;" />
 
-<img src="media/image3.png" style="display: block; margin: 0 auto;" />
+<img src="media/image3.webp" style="display: block; margin: 0 auto;" />
 
 # 二、线条
 
@@ -38,13 +38,13 @@ tags:
 
 我们可以通过分析一个画面的主要方向、分界处和运动轨迹，将复杂的景物归结为本质的视觉元素。不同的结构线可以唤起不同的情绪。
 
-<img src="media/image4.png" style="display: block; margin: 0 auto;" />
+<img src="media/image4.webp" style="display: block; margin: 0 auto;" />
 
 ## 2. 走向
 
 走向是指线条相对于画框边缘的排布方式。走向会影响情感。
 
-<img src="media/image5.png" style="display: block; margin: 0 auto;" />
+<img src="media/image5.webp" style="display: block; margin: 0 auto;" />
 
 ## 3. 排布
 
@@ -64,8 +64,8 @@ tags:
 
 | | |
 |---|---|
-| <img src="media/image6.png" style="display: block; margin: 0 auto;" /> | <img src="media/image7.png" style="display: block; margin: 0 auto;" /> |
-| <img src="media/image8.png" style="display: block; margin: 0 auto;" /> | <img src="media/image9.png" style="display: block; margin: 0 auto;" /> |
+| <img src="media/image6.webp" style="display: block; margin: 0 auto;" /> | <img src="media/image7.webp" style="display: block; margin: 0 auto;" /> |
+| <img src="media/image8.webp" style="display: block; margin: 0 auto;" /> | <img src="media/image9.webp" style="display: block; margin: 0 auto;" /> |
 
 ## 5. 调和与反差
 
@@ -75,15 +75,15 @@ tags:
 
 调和：走向和性质比较相似的线条，比如海平面，地平线的画面
 
-<img src="media/image10.png" style="display: block; margin: 0 auto;" />
+<img src="media/image10.webp" style="display: block; margin: 0 auto;" />
 
-<img src="media/image11.png" style="display: block; margin: 0 auto;" />
+<img src="media/image11.webp" style="display: block; margin: 0 auto;" />
 
 ## 6. 律动
 
 让相似的线条以某种律动式的间隔重复，不均匀的或随机的间隔会给画面增加更多的刺激感，甚至增加紧张感（如破碎的镜子），反之固定重复的线条或者以某种特定比例分布的线条，会让画面看起来有条不紊或是枯燥无味。
 
-<img src="media/image12.png" style="display: block; margin: 0 auto;" />
+<img src="media/image12.webp" style="display: block; margin: 0 auto;" />
 
 # 三、形状
 
@@ -95,9 +95,9 @@ tags:
 
 | | |
 |---|---|
-| <img src="media/image13.png" style="display: block; margin: 0 auto;" /> | <img src="media/image14.png" style="display: block; margin: 0 auto;" /> |
+| <img src="media/image13.webp" style="display: block; margin: 0 auto;" /> | <img src="media/image14.webp" style="display: block; margin: 0 auto;" /> |
 
-<img src="media/image15.png" style="display: block; margin: 0 auto;" />
+<img src="media/image15.webp" style="display: block; margin: 0 auto;" />
 
 这些提炼出来的构图展示了一些可以用来设计图像中结构性形状的不同手段。负空间、光影、前景物体、人物的排列，以及镜头的视角，这里仅列举这几种方式，它们都能够让镜头打破空间从而创造出有趣的构图动态。
 
@@ -107,7 +107,7 @@ tags:
 
 一个优秀的形状设计应该是清晰可读的。对于世界上所有的艺术作品来说，如果观众看到最后不知道在看什么，那么再好的艺术诠释都会有些难以自圆其说。影视作品一个镜头只有几秒钟的时间来传达表达内容，因此设计可以被观众快速读懂的形状是至关重要的。
 
-<img src="media/image16.png" style="display: block; margin: 0 auto;" />
+<img src="media/image16.webp" style="display: block; margin: 0 auto;" />
 
 ### 游戏动画设计中的可读性设计
 
@@ -131,11 +131,11 @@ tags:
 
 然而为了使这种多样性具有吸引力，这种多样性必须是有节制的。如果是狂乱无序、互不关联的形状，即使具有丰富的多样性并能带来视觉刺激，但这并不是想要的效果。在构图中纳入任何反差时，必须考虑它与调和性、可读性等因素之间的平衡。这需要一点一点地练习，你会逐渐了解在什么样的情况下，多少变化是"太多了"，多少变化又是"太少了"。只要能坚持下去，它终将成为你的第二本能。
 
-<img src="media/image17.png" style="display: block; margin: 0 auto;" />
+<img src="media/image17.webp" style="display: block; margin: 0 auto;" />
 
 视觉趣味性 = 预期与变化 = 秩序与打破 = 统一与差异
 
-<img src="media/image18.png" style="display: block; margin: 0 auto;" />
+<img src="media/image18.webp" style="display: block; margin: 0 auto;" />
 
 ### 游戏动画中的视觉趣味性
 
@@ -161,7 +161,7 @@ tags:
 
 研究艺术品、建筑物与自然景观，分析你所看到的潜在形状是如何影响情绪的。对这种感觉的影响最大的是形状的类型、大小关系，还是画面中的调和与反差？提高这方面的敏感度，能够充实你的资料库，使你意识到那些你从未考虑过的形状的情感应用。一旦你掌握了这个基本概念，就可以用这个概念发掘各种联想。
 
-<img src="media/image19.png" style="display: block; margin: 0 auto;" />
+<img src="media/image19.webp" style="display: block; margin: 0 auto;" />
 
 # 四、色值
 
@@ -175,14 +175,14 @@ tags:
 
 **可读性**：控制焦点，控制信息量
 
-<img src="media/image20.png" style="display: block; margin: 0 auto;" />
+<img src="media/image20.webp" style="display: block; margin: 0 auto;" />
 
 **趣味性**：一个明确的焦点、调和与反差之间的合理平衡、少数关键设计元素明确的主导地位，以及质地和律动的有趣变化。
 
-<img src="media/image21.png" style="display: block; margin: 0 auto;" />
+<img src="media/image21.webp" style="display: block; margin: 0 auto;" />
 
 **情绪性**：元素的选择是否是为了情绪服务
 
-<img src="media/image22.png" style="display: block; margin: 0 auto;" />
+<img src="media/image22.webp" style="display: block; margin: 0 auto;" />
 
 形状，构图，打光，场景元素 —— 信息量的控制，使观众注意力集中
