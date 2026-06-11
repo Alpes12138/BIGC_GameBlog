@@ -14,7 +14,7 @@ tags:
   - 游戏动画
 ---
 
-[**查看《色彩与构图》PDF原文**](https://gitee.com/alpes12138/BIGC_GameBlog/raw/master/content/post/Chamber-Art-ColorAndComposition/media/%E8%89%B2%E5%BD%A9%E4%B8%8E%E6%9E%84%E5%9B%BE.pdf)
+[**查看《色彩与构图》PDF原文**](https://www.kdocs.cn/l/ctid8z8HOYUz)
 
 <img src="media/image1.png" style="display: block; margin: 0 auto;" />
 
